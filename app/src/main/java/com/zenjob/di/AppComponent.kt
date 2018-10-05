@@ -1,0 +1,33 @@
+package com.zenjob.di
+
+import com.zenjob.BaseApp
+import dagger.BindsInstance
+import dagger.Component
+import dagger.android.AndroidInjector
+import dagger.android.support.AndroidSupportInjectionModule
+import javax.inject.Singleton
+
+@Singleton
+@Component(
+        modules = [
+            AndroidSupportInjectionModule::class,
+            ActivityBuilder::class,
+            NetworkModule::class,
+            ViewModelModule::class
+        ])
+interface AppComponent : AndroidInjector<BaseApp> {
+
+    @Component.Builder
+    interface Builder {
+
+        @BindsInstance
+        fun application(application: BaseApp): Builder
+
+        fun network(network: NetworkModule): Builder
+
+        fun build(): AppComponent
+    }
+
+    override fun inject(app: BaseApp)
+
+}
