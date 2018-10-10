@@ -5,4 +5,9 @@
     <string name="lbl_login_email">Email</string>
     <string name="lbl_login_password">Password</string>
     <string name="lbl_login_submit">LOGIN</string>
+
+    <string name="err_msg_email">Please provide valid email</string>
+    <string name="err_msg_password">Please provide valid password</string>
+
+    <string name="title_error_dialog">ERROR</string>
 </resources>

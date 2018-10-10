@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
             name="viewModel"
             type="com.zenjob.ui.login.loginscreen.LoginViewModel" />
+
+        <variable
+            name="watcher"
+            type="android.text.TextWatcher" />
+
+        <import type="com.zenjob.utils.validation.ValidationRule" />
+
+        <import type="com.zenjob.utils.validation.ValidationUtils" />
+
     </data>
 
     <LinearLayout
@@ -19,44 +29,72 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/margin_16"
+            android:layout_marginBottom="@dimen/margin_16"
             android:text="@string/lbl_login_heading" />
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_30"
+            android:watcher="@{watcher}"
+            app:error="@{@string/err_msg_email}"
+            app:rule="@{ValidationRule.EMPTY}">
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/et_login_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/lbl_login_email"
-                android:inputType="text"
+                android:inputType="textEmailAddress"
                 android:singleLine="true"
+                android:text="@={viewModel.email}"
                 android:textColor="@android:color/black" />
 
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_16"
+            android:watcher="@{watcher}"
+            app:error="@{@string/err_msg_password}"
+            app:rule="@{ValidationRule.PASSWORD}">
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/et_login_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/lbl_login_password"
-                android:inputType="text"
+                android:inputType="textPassword"
                 android:singleLine="true"
+                android:text="@={viewModel.password}"
                 android:textColor="@android:color/black" />
 
         </android.support.design.widget.TextInputLayout>
 
-        <Button
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/lbl_login_submit" />
+            android:layout_marginLeft="@dimen/margin_16"
+            android:layout_marginRight="@dimen/margin_16">
 
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:enabled="@{ValidationUtils.isValidEmail(viewModel.email) &amp;&amp; ValidationUtils.isValidPassword(viewModel.password)}"
+                android:onClick="@{() -> viewModel.login()}"
+                android:text="@string/lbl_login_submit"
+                app:networkStateFlag="@{viewModel.networkState}" />
 
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:networkStateFlag="@{viewModel.networkState}" />
+        </RelativeLayout>
     </LinearLayout>
 </layout>

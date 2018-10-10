@@ -2,6 +2,7 @@ package com.zenjob.di
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
+import com.zenjob.ui.home.offers.OffersViewModel
 import com.zenjob.ui.login.loginscreen.LoginViewModel
 import dagger.Binds
 import dagger.Module
@@ -22,5 +23,10 @@ interface ViewModelModule {
     @IntoMap
     @ViewModelKey(LoginViewModel::class)
     fun bindLoginViewModel(viewModel: LoginViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(OffersViewModel::class)
+    fun bindOffersViewModel(viewModel: OffersViewModel): ViewModel
 
 }

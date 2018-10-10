@@ -6,7 +6,7 @@ import com.zenjob.R
 import com.zenjob.databinding.ActivityLoginBinding
 import com.zenjob.ui.common.base.BaseActivity
 import com.zenjob.ui.login.loginscreen.LoginFragment
-import de.appsfactory.lastfm.utils.ext.replaceFragment
+import com.zenjob.utils.ext.replaceFragment
 
 class LoginActivity : BaseActivity() {
 
