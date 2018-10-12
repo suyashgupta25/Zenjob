@@ -1,6 +1,7 @@
 package com.zenjob.data.model
 
 data class OffersItem(
+        val id: String? = null,
         val instructions: String? = null,
         val breakTypes: List<BreakTypesItem?>? = null,
         val earningTotal: String? = null,
@@ -14,6 +15,5 @@ data class OffersItem(
         val pricingTables: List<PricingTablesItem?>? = null,
         val shifts: List<ShiftsItem?>? = null,
         val location: Location? = null,
-        val id: String? = null,
         val jobCategoryKey: String? = null
 )

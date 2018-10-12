@@ -74,15 +74,29 @@ class LoginFragment : Fragment() {
     private fun addObservers() {
         viewModel.networkState.observe(this, Observer {
             if (it?.status == Status.SUCCESS) {
-                val intent = Intent(activity, HomeActivity::class.java)
-                startActivity(intent)
-                activity?.finish()
+                goToHomeScreen()
             } else if (it?.status == Status.FAILED) {
                 errorDialog.showDialog(activity, it.msg)
             } else if (it?.status == Status.RUNNING) {
                 activity?.hideKeyboard(activity)
             }
         })
+    }
+
+    private fun goToHomeScreen() {
+        val intent = Intent(activity, HomeActivity::class.java)
+        startActivity(intent)
+        activity?.finish()
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        if (viewModel.checkForAppSession()) goToHomeScreen()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.dummy()
     }
 
 }

@@ -5,4 +5,6 @@ import com.zenjob.data.model.LoginResponse
 interface PrefsHelper {
 
     fun saveUserAuth(response: LoginResponse)
+
+    fun checkForSessionAvailable(): Boolean
 }

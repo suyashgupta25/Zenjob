@@ -1,4 +1,4 @@
-package com.zenjob.utils
+package com.zenjob.data.local
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -42,6 +42,12 @@ object PreferenceHelper {
             Long::class -> getLong(key, defaultValue as? Long ?: -1) as T?
             else -> throw UnsupportedOperationException("Not yet implemented")
         }
+    }
+
+    inline fun SharedPreferences.clearAll(operation: (SharedPreferences.Editor) -> Unit) {
+        val editor = this.edit()
+        editor.clear()
+        editor.commit()
     }
 
     val KEY_AUTH_TOKEN = "keyAuthToken"

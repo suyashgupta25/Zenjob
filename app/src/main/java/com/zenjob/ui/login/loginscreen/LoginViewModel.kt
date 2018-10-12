@@ -23,6 +23,8 @@ class LoginViewModel @Inject constructor(private val webService: ZenjobService, 
     val password = ObservableField<String>()
     val networkState = MutableLiveData<NetworkState>()
 
+    fun checkForAppSession() = prefsHelper.checkForSessionAvailable()
+
     fun login() {
         networkState.value = NetworkState.LOADING
         disposable.add(webService.postLogin(LoginRequest(email.get(), password.get()))
@@ -38,6 +40,11 @@ class LoginViewModel @Inject constructor(private val webService: ZenjobService, 
                 }, {
                 })
         )
+    }
+
+    fun dummy() {
+        email.set("suyash.gupta25@gmail.com")
+        password.set("testing12345")
     }
 
     override fun onCleared() {

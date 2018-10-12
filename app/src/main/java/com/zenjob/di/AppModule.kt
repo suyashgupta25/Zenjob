@@ -3,9 +3,9 @@ package com.zenjob.di
 import android.content.SharedPreferences
 import com.zenjob.BaseApp
 import com.zenjob.data.local.AppPrefsHelper
+import com.zenjob.data.local.PreferenceHelper
 import com.zenjob.data.local.PrefsHelper
 import com.zenjob.ui.common.dialogs.ErrorDialog
-import com.zenjob.utils.PreferenceHelper
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

@@ -42,6 +42,7 @@ class OffersFragment : Fragment() {
             it!!.viewModel = viewModel
             it.setLifecycleOwner(this)
         }
+        viewModel.getOffers()
     }
 
 }

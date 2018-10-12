@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <import type="android.view.View" />
 
         <variable
             name="viewModel"
@@ -12,9 +16,43 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="@dimen/margin_16"
-        android:layout_marginRight="@dimen/margin_16"
         android:orientation="vertical">
 
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:elevation="@dimen/appbar_default_elevation">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                style="@style/Toolbar"
+                app:subtitleTextColor="@android:color/white"
+                app:title="@string/lbl_home_toolbar_title"
+                app:titleTextAppearance="@style/Toolbar.TitleText"
+                app:titleTextColor="@android:color/white" />
+
+        </android.support.design.widget.AppBarLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_offers"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:listitem="@layout/item_offers_list" />
+
+            <include
+                layout="@layout/include_error_layout"
+                android:visibility='@{viewModel.errorMsg.equals("") ? View.GONE : View.VISIBLE}'
+                app:errorMessage="@{viewModel.errorMsg}"
+                app:retryListener="@{viewModel}" />
+
+            <include
+                layout="@layout/include_progress_layout"
+                android:visibility='@{viewModel.isLoading ? View.GONE : View.VISIBLE}'
+                app:isLoading="@{viewModel.isLoading}" />
+        </FrameLayout>
     </LinearLayout>
 </layout>

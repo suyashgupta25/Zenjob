@@ -6,8 +6,11 @@
     <string name="lbl_login_password">Password</string>
     <string name="lbl_login_submit">LOGIN</string>
 
+    <string name="lbl_home_toolbar_title">Jobs Discover</string>
+
     <string name="err_msg_email">Please provide valid email</string>
     <string name="err_msg_password">Please provide valid password</string>
+    <string name="err_retry">Retry</string>
 
     <string name="title_error_dialog">ERROR</string>
 </resources>
