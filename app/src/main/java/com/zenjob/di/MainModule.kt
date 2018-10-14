@@ -1,5 +1,6 @@
 package com.zenjob.di
 
+import com.zenjob.ui.home.offerdetails.OfferDetailsFragment
 import com.zenjob.ui.home.offers.OffersFragment
 import com.zenjob.ui.login.loginscreen.LoginFragment
 import dagger.Module
@@ -13,5 +14,8 @@ internal abstract class MainModule {
 
     @ContributesAndroidInjector
     internal abstract fun contributeOffersFragmentInjector(): OffersFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun contributeOfferDetailsFragmentInjector(): OfferDetailsFragment
 
 }

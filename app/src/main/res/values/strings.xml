@@ -7,10 +7,15 @@
     <string name="lbl_login_submit">LOGIN</string>
 
     <string name="lbl_home_toolbar_title">Jobs Discover</string>
+    <string name="lbl_offer_earning_per_day">%s per hour</string>
 
     <string name="err_msg_email">Please provide valid email</string>
     <string name="err_msg_password">Please provide valid password</string>
     <string name="err_retry">Retry</string>
+    <string name="err_data_default">Error: Executing else block with no results</string>
 
     <string name="title_error_dialog">ERROR</string>
+
+    <string name="param_error_message">paramErrorMessage</string>
+    <string name="param_offer_details_id">paramOfferDetailsId</string>
 </resources>

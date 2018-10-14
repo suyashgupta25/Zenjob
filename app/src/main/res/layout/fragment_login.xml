@@ -21,9 +21,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="@dimen/margin_16"
-        android:layout_marginRight="@dimen/margin_16"
-        android:orientation="vertical">
+        android:background="#93e7cf"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/margin_16"
+        android:paddingRight="@dimen/margin_16">
 
         <TextView
             android:layout_width="wrap_content"
@@ -31,7 +32,8 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/margin_16"
             android:layout_marginBottom="@dimen/margin_16"
-            android:text="@string/lbl_login_heading" />
+            android:text="@string/lbl_login_heading"
+            android:textStyle="bold" />
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -49,7 +51,8 @@
                 android:inputType="textEmailAddress"
                 android:singleLine="true"
                 android:text="@={viewModel.email}"
-                android:textColor="@android:color/black" />
+                android:textColor="@android:color/black"
+                app:networkStateFlag="@{viewModel.networkState}" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -69,7 +72,8 @@
                 android:inputType="textPassword"
                 android:singleLine="true"
                 android:text="@={viewModel.password}"
-                android:textColor="@android:color/black" />
+                android:textColor="@android:color/black"
+                app:networkStateFlag="@{viewModel.networkState}" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -83,9 +87,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:background="@drawable/selector_login_button"
                 android:enabled="@{ValidationUtils.isValidEmail(viewModel.email) &amp;&amp; ValidationUtils.isValidPassword(viewModel.password)}"
                 android:onClick="@{() -> viewModel.login()}"
                 android:text="@string/lbl_login_submit"
+                android:textColor="@android:color/white"
                 app:networkStateFlag="@{viewModel.networkState}" />
 
             <ProgressBar

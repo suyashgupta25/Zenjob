@@ -12,7 +12,7 @@ class NetworkState(val status: Status, val msg: String) {
         }
 
         val MSG_SUCCESS = "Success"
-        val MSG_FAILURE = "Failure"
+        val MSG_FAILURE = "Can not connect now. We regret the inconvenience caused."
         val MSG_RUNNING = "Running"
     }
 

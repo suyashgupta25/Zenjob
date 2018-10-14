@@ -5,8 +5,6 @@
 
     <data>
 
-        <import type="android.view.View" />
-
         <variable
             name="viewModel"
             type="com.zenjob.ui.home.offers.OffersViewModel" />
@@ -33,26 +31,12 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <FrameLayout
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_offers"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_offers_list" />
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_offers"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:listitem="@layout/item_offers_list" />
-
-            <include
-                layout="@layout/include_error_layout"
-                android:visibility='@{viewModel.errorMsg.equals("") ? View.GONE : View.VISIBLE}'
-                app:errorMessage="@{viewModel.errorMsg}"
-                app:retryListener="@{viewModel}" />
-
-            <include
-                layout="@layout/include_progress_layout"
-                android:visibility='@{viewModel.isLoading ? View.GONE : View.VISIBLE}'
-                app:isLoading="@{viewModel.isLoading}" />
-        </FrameLayout>
     </LinearLayout>
 </layout>

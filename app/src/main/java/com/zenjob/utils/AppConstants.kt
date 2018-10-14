@@ -3,6 +3,8 @@ package com.zenjob.utils
 class AppConstants {
     companion object {
         const val EMPTY = ""
+        const val ZERO = 0
+        const val ONE = 1
 
         //Network settings
         const val CONNECTION_TIMEOUT = 10L

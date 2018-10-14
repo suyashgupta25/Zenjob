@@ -11,11 +11,15 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
+        vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         //Server URL added here so that it is configurable at build level and can separated
         //based on bebug and release mode: Lets say Debug to dev server and Release to Prod
         buildConfigField "String", "BASE_URL", "\"https://api-staging.zenjob.org/\""
+    }
+    aaptOptions {
+        additionalParameters "--no-version-vectors"
     }
     buildTypes {
         release {
@@ -44,8 +48,8 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     // Support Libs
     implementation "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
-    implementation "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
     implementation "com.android.support:design:$rootProject.supportLibraryVersion"
+    implementation "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
     implementation "com.android.support:support-annotations:$rootProject.supportLibraryVersion"
 
     // Kotlin
@@ -81,10 +85,6 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxjava2Version"
     implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroidVersion"
     implementation "io.reactivex.rxjava2:rxkotlin:$rootProject.rxkotlin"
-
-    //Image loading and caching
-    implementation "com.github.bumptech.glide:glide:$rootProject.glide"
-    kapt "com.github.bumptech.glide:compiler:$rootProject.glide"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

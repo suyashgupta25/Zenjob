@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">#93e7cf</color>
+    <color name="colorPrimaryDark">#58dab5</color>
+    <color name="colorAccent">#3b5060</color>
 
-    <color name="colorErrorDialogTitle">#3b5060</color>
+    <color name="colorOfferTitle">#fdb49e</color>
+    <color name="colorOfferTitleDark">#fc8b69</color>
+
     <color name="colorErrorDialogText">#84000000</color>
     <color name="colorErrorDialogButton">#3b5060</color>
 
@@ -15,6 +17,7 @@
     <color name="dark_gray">#696969</color>
     <color name="light_gray">#dbdbdb</color>
 
+    <color name="colorBtnDisable">#b8efe0</color>
 
     <!--0% = #00-->
     <!--10% = #16-->

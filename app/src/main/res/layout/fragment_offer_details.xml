@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="java.util.Locale" />
+
+        <import type="com.zenjob.utils.format.TextUtils" />
+
+        <variable
+            name="viewModel"
+            type="com.zenjob.ui.home.offerdetails.OfferDetailsViewModel" />
+
+        <variable
+            name="errorClickListener"
+            type="com.zenjob.ui.common.listeners.ErrorItemClickListener" />
+
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
+
+        <include
+            android:id="@+id/include_network_layout"
+            layout="@layout/item_network_state"
+            android:visibility="@{(viewModel.networkViewModel.showProgress || viewModel.networkViewModel.showError) ? View.VISIBLE : View.GONE}"
+            app:errorClickListener="@{errorClickListener}"
+            app:viewModel="@{viewModel.networkViewModel}" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="@{(viewModel.networkViewModel.showProgress || viewModel.networkViewModel.showError) ? View.GONE : View.VISIBLE}">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorOfferTitle"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/margin_16"
+                    app:srcCompat="@drawable/ic_assignment_24dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/margin_8"
+                    android:singleLine="true"
+                    android:text='@{viewModel.offer.jobCategoryKey.toUpperCase(Locale.getDefault()) ?? ""}'
+                    android:textColor="#3a5061" />
+
+                <TextView
+                    android:id="@+id/tv_offer_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/margin_16"
+                    android:layout_marginBottom="@dimen/margin_16"
+                    android:gravity="center"
+                    android:text='@{viewModel.offer.title ?? ""}'
+                    android:textColor="@android:color/white"
+                    android:textSize="30sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_offer_earning"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/margin_16"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text='@{TextUtils.formatTextForCurrency(viewModel.offer.earningTotal ?? "")}'
+                android:textColor="#3b5060"
+                android:textSize="36sp" />
+
+            <TextView
+                android:id="@+id/tv_offer_earning_hourly"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/margin_4"
+                android:layout_marginBottom="@dimen/margin_16"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text='@{String.format(@string/lbl_offer_earning_per_day, TextUtils.formatTextForCurrency(viewModel.offer.earningHourly ?? ""))}'
+                android:textColor="#3b5060"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_offer_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_16"
+                android:drawableLeft="@drawable/ic_pin_drop_24dp"
+                android:drawablePadding="@dimen/margin_4"
+                android:gravity="center_vertical"
+                android:text='@{viewModel.offer.location.locationName ?? ""}'
+                android:textColor="#3b5060"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_16"
+                android:drawableLeft="@drawable/ic_business_24dp"
+                android:drawablePadding="@dimen/margin_4"
+                android:text='@{viewModel.offer.companyName ?? ""}'
+                android:textColor="#3b5060"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_16"
+                android:drawableLeft="@drawable/ic_description_24dp"
+                android:drawablePadding="@dimen/margin_4"
+                android:text='@{viewModel.offer.description ?? ""}'
+                android:textColor="#3b5060"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_16"
+                android:drawableLeft="@drawable/ic_instruction_24dp"
+                android:drawablePadding="@dimen/margin_4"
+                android:text='@{viewModel.offer.instructions ?? ""}'
+                android:textColor="#3b5060"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</layout>

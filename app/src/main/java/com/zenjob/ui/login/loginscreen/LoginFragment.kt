@@ -76,7 +76,7 @@ class LoginFragment : Fragment() {
             if (it?.status == Status.SUCCESS) {
                 goToHomeScreen()
             } else if (it?.status == Status.FAILED) {
-                errorDialog.showDialog(activity, it.msg)
+                ErrorDialog.newInstance(it.msg, getString(R.string.param_error_message)).show(fragmentManager, ErrorDialog.TAG)
             } else if (it?.status == Status.RUNNING) {
                 activity?.hideKeyboard(activity)
             }
