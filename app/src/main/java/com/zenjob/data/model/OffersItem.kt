@@ -1,5 +1,8 @@
 package com.zenjob.data.model
 
+import se.ansman.kotshi.JsonSerializable
+
+@JsonSerializable
 data class OffersItem(
         val id: String? = null,
         val instructions: String? = null,

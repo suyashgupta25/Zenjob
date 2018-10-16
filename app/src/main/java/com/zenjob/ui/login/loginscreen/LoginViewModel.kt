@@ -9,12 +9,13 @@ import com.zenjob.data.remote.NetworkState
 import com.zenjob.data.remote.Status
 import com.zenjob.data.remote.ZenjobService
 import com.zenjob.utils.defaultErrorHandler
-import io.reactivex.android.schedulers.AndroidSchedulers
+import com.zenjob.utils.rx.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class LoginViewModel @Inject constructor(private val webService: ZenjobService, private val prefsHelper: PrefsHelper) : ViewModel() {
+class LoginViewModel @Inject constructor(private val webService: ZenjobService,
+                                         private val prefsHelper: PrefsHelper,
+                                         private val schedulerProvider: SchedulerProvider) : ViewModel() {
 
     // Disposable
     private val disposable: CompositeDisposable = CompositeDisposable()
@@ -27,9 +28,10 @@ class LoginViewModel @Inject constructor(private val webService: ZenjobService, 
 
     fun login() {
         networkState.value = NetworkState.LOADING
-        disposable.add(webService.postLogin(LoginRequest(email.get(), password.get()))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+        disposable.add(
+                webService.postLogin(LoginRequest(email.get(), password.get()))
+                        .subscribeOn(schedulerProvider.io())
+                        .observeOn(schedulerProvider.ui())
                 .doOnError(defaultErrorHandler())
                 .subscribe({
                     prefsHelper.saveUserAuth(it)

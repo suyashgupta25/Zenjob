@@ -1,5 +1,8 @@
 package com.zenjob.data.model
 
+import se.ansman.kotshi.JsonSerializable
+
+@JsonSerializable
 data class PricingTablesItem(
         val times: Any? = null,
         val earningTotal: String? = null,

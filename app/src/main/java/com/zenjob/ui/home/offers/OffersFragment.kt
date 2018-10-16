@@ -1,9 +1,11 @@
 package com.zenjob.ui.home.offers
 
+import android.app.Activity
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -11,12 +13,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.zenjob.R
+import com.zenjob.data.model.OfferDeclineResponse
 import com.zenjob.databinding.FragmentOffersBinding
 import com.zenjob.ui.common.base.BaseActivity
+import com.zenjob.ui.home.offerdecline.OfferDeclineFragment
 import com.zenjob.ui.home.offerdetails.OfferDetailsFragment
+import com.zenjob.utils.AppConstants.Companion.OFFER_DECLINE_DIALOG
 import com.zenjob.utils.ext.addFragment
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
+
 
 class OffersFragment : Fragment(), OfferItemClickListener {
 
@@ -64,6 +70,17 @@ class OffersFragment : Fragment(), OfferItemClickListener {
         viewModel.getOffers()
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        //super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            OFFER_DECLINE_DIALOG ->
+                if (resultCode === Activity.RESULT_OK) {
+                    val response = data?.getParcelableExtra<OfferDeclineResponse>(getString(R.string.param_offer_decline_response))
+                    mAdapter.updateListAfterDeclineOffer(response)
+                }
+        }
+    }
+
     override fun onSeeDetailsClick(view: View, position: Int) {
         val bundle = Bundle()
         bundle.putString(getString(R.string.param_offer_details_id),
@@ -72,7 +89,10 @@ class OffersFragment : Fragment(), OfferItemClickListener {
     }
 
     override fun onOfferDeclineClick(view: View, position: Int) {
-
+        val newInstance = OfferDeclineFragment
+                .newInstance(mAdapter.getOfferId(position), getString(R.string.param_offer_decline_id))
+        newInstance.setTargetFragment(this, OFFER_DECLINE_DIALOG)
+        newInstance.show(fragmentManager, OfferDeclineFragment.TAG)
     }
 
     override fun onRetryClick(position: Int) {

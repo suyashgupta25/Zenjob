@@ -6,7 +6,6 @@ object TextUtils {
 
     private const val euro = "\u20ac"
 
-
     @JvmStatic
     fun formatTextForCurrency(value: String?): String {
         value?.let {

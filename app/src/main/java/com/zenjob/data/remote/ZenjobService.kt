@@ -1,14 +1,8 @@
 package com.zenjob.data.remote
 
-import com.zenjob.data.model.LoginRequest
-import com.zenjob.data.model.LoginResponse
-import com.zenjob.data.model.OffersItem
-import com.zenjob.data.model.OffersListResponse
+import com.zenjob.data.model.*
 import io.reactivex.Observable
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface ZenjobService {
 
@@ -22,4 +16,12 @@ interface ZenjobService {
 
     @GET("/api/employee/v1/offers/{id}")
     fun getOfferDetails(@Path("id") offerId: String?): Observable<OffersItem>
+
+    @GET("/api/employee/v1/data/declineReasons")
+    fun getOfferReasons(): Observable<OfferDeclineReasonsResponse>
+
+    @HTTP(method = "DELETE", path = "/api/employee/v1/offers/{id}", hasBody = true)
+    fun declineOffer(@Path("id") offerId: String?,
+                     @Body request: OfferDeclineRequest
+    ): Observable<OfferDeclineResponse>
 }

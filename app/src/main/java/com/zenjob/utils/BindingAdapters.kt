@@ -22,7 +22,7 @@ fun watcher(textInputLayout: TextInputLayout, errorMsg: String, rule: Validation
         }
 
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            if (rule == ValidationRule.EMPTY) {
+            if (rule == ValidationRule.EMAIL) {
                 if (!ValidationUtils.isValidEmail(p0.toString())) {
                     textInputLayout.error = errorMsg
                 } else {
@@ -31,6 +31,13 @@ fun watcher(textInputLayout: TextInputLayout, errorMsg: String, rule: Validation
             }
             if (rule == ValidationRule.PASSWORD) {
                 if (!ValidationUtils.isValidPassword(p0.toString())) {
+                    textInputLayout.error = errorMsg
+                } else {
+                    textInputLayout.error = null
+                }
+            }
+            if (rule == ValidationRule.EMPTY) {
+                if (p0.isNullOrEmpty()) {
                     textInputLayout.error = errorMsg
                 } else {
                     textInputLayout.error = null

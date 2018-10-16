@@ -16,6 +16,8 @@ import com.zenjob.utils.AppConstants.Companion.READ_TIMEOUT
 import com.zenjob.utils.AppConstants.Companion.WRITE_TIMEOUT
 import com.zenjob.utils.ApplicationJsonAdapterFactory
 import com.zenjob.utils.InstantAdapter
+import com.zenjob.utils.rx.AppSchedulerProvider
+import com.zenjob.utils.rx.SchedulerProvider
 import dagger.Module
 import dagger.Provides
 import okhttp3.Interceptor
@@ -82,6 +84,12 @@ open class NetworkModule {
             }
             return response
         }
+    }
+
+    @Provides
+    @Singleton
+    fun provideScheduler(): SchedulerProvider {
+        return AppSchedulerProvider()
     }
 
 }

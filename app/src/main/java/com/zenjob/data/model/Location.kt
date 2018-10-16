@@ -1,5 +1,8 @@
 package com.zenjob.data.model
 
+import se.ansman.kotshi.JsonSerializable
+
+@JsonSerializable
 data class Location(
         val locationName: String? = null,
         val streetNumber: String? = null,

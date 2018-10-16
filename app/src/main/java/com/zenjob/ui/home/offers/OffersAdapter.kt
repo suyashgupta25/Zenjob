@@ -7,11 +7,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.zenjob.R
+import com.zenjob.data.model.OfferDeclineResponse
 import com.zenjob.data.model.OffersItem
 import com.zenjob.data.model.Result
 import com.zenjob.data.remote.NetworkState
 import com.zenjob.data.remote.Status
 import com.zenjob.databinding.ItemNetworkStateBinding
+import com.zenjob.databinding.ItemOffersEmptyBinding
 import com.zenjob.databinding.ItemOffersListBinding
 import com.zenjob.ui.common.base.BaseHolder
 import com.zenjob.ui.common.listeners.ErrorItemClickListener
@@ -36,6 +38,10 @@ class OffersAdapter(val itemClickListener: OfferItemClickListener) : RecyclerVie
                 val binding = ItemNetworkStateBinding.inflate(layoutInflater, parent, false)
                 viewHolder = NetworkStateItemViewHolder(binding, itemClickListener)
             }
+            R.layout.item_offers_empty -> {
+                val binding = ItemOffersEmptyBinding.inflate(layoutInflater, parent, false)
+                viewHolder = EmptyStateItemViewHolder(binding)
+            }
             else -> throw IllegalArgumentException("unknown view type")
         }
         return viewHolder
@@ -45,14 +51,19 @@ class OffersAdapter(val itemClickListener: OfferItemClickListener) : RecyclerVie
         when (getItemViewType(position)) {
             R.layout.item_offers_list -> (holder as OfferItemViewHolder).onBind(position)
             R.layout.item_network_state -> (holder as NetworkStateItemViewHolder).onBind(position)
+            R.layout.item_offers_empty -> (holder as EmptyStateItemViewHolder).onBind(position)
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (items.isEmpty()) {
-            R.layout.item_network_state
+        if (networkState.status == Status.RUNNING || networkState.status == Status.FAILED) {
+            return R.layout.item_network_state
         } else {
-            R.layout.item_offers_list
+            if (items.isEmpty()) {
+                return R.layout.item_offers_empty
+            } else {
+                return R.layout.item_offers_list
+            }
         }
     }
 
@@ -79,13 +90,28 @@ class OffersAdapter(val itemClickListener: OfferItemClickListener) : RecyclerVie
         }
     }
 
+    fun updateListAfterDeclineOffer(offerDecline: OfferDeclineResponse?) {
+        val filteredList = items.filter { s -> !s.id.equals(offerDecline?.id) }
+        val diffCallback = OfferListDiffCallback(items, filteredList)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+
+        networkState = NetworkState.LOADED
+        items.clear()
+        items.addAll(filteredList);
+        diffResult.dispatchUpdatesTo(this);
+    }
+
     override fun getItemCount(): Int {
         if (networkState.status == Status.RUNNING) {
             return ONE
         } else if (networkState.status == Status.FAILED) {
             return ONE
         } else {
-            return items.size
+            if (items.isEmpty()) {
+                return ONE
+            } else {
+                return items.size
+            }
         }
     }
 
@@ -134,6 +160,22 @@ class OffersAdapter(val itemClickListener: OfferItemClickListener) : RecyclerVie
 
         override fun onRetryClick(position: Int) {
             clickListener.onRetryClick(positionOfItem)
+        }
+    }
+
+    inner class EmptyStateItemViewHolder(binding: ItemOffersEmptyBinding) : BaseHolder(binding.root) {
+
+        private val binding: ItemOffersEmptyBinding
+        private var positionOfItem: Int = 0
+
+        init {
+            this.binding = binding
+        }
+
+        override fun onBind(position: Int) {
+            positionOfItem = position
+            val itemOffersEmptyBinding = OfferItemEmptyViewModel()
+            binding.viewModel = itemOffersEmptyBinding
         }
     }
 

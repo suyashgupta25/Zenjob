@@ -11,5 +11,8 @@ class AppConstants {
         const val READ_TIMEOUT = 30L
         const val WRITE_TIMEOUT = 10L
 
+        //Result transitions
+        const val OFFER_DECLINE_DIALOG = 999
+
     }
 }

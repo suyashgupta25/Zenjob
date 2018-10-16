@@ -32,7 +32,7 @@ class ErrorDialog : DialogFragment(), View.OnClickListener {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = Dialog(activity, R.style.Theme_Dialog)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        val view = activity!!.layoutInflater.inflate(R.layout.dialog_error, null)
+        val view = View.inflate(context, R.layout.dialog_error, null)
         val text = view.findViewById(R.id.tv_error_dialog_text) as TextView
         text.text = arguments?.getString(getString(R.string.param_error_message))
 

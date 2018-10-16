@@ -41,7 +41,7 @@
             android:layout_marginBottom="@dimen/margin_30"
             android:watcher="@{watcher}"
             app:error="@{@string/err_msg_email}"
-            app:rule="@{ValidationRule.EMPTY}">
+            app:rule="@{ValidationRule.EMAIL}">
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/et_login_email"
@@ -84,6 +84,7 @@
             android:layout_marginRight="@dimen/margin_16">
 
             <Button
+                android:id="@+id/btn_login_submit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"

@@ -1,39 +1,42 @@
 package com.zenjob.ui.home.offerdetails
 
-import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableField
 import com.zenjob.data.model.OffersItem
-import com.zenjob.data.model.Result
 import com.zenjob.data.remote.NetworkState
 import com.zenjob.data.remote.Status
 import com.zenjob.data.remote.ZenjobService
 import com.zenjob.ui.common.viewmodels.ItemNetworkStateViewModel
 import com.zenjob.utils.defaultErrorHandler
-import io.reactivex.android.schedulers.AndroidSchedulers
+import com.zenjob.utils.rx.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class OfferDetailsViewModel @Inject constructor(private val webService: ZenjobService) : ViewModel() {
+class OfferDetailsViewModel @Inject constructor(private val webService: ZenjobService,
+                                                private val schedulerProvider: SchedulerProvider) : ViewModel() {
 
     // Disposable
     private val disposable: CompositeDisposable = CompositeDisposable()
 
-    val offerResponse = MutableLiveData<Result<OffersItem>>()
     val offer = ObservableField<OffersItem>()
     val networkViewModel = ItemNetworkStateViewModel(NetworkState(Status.RUNNING, NetworkState.MSG_RUNNING))
 
     fun getOfferDetails(id: String?) {
+        networkViewModel.showProgress.set(true)
+        networkViewModel.showError.set(false)
         disposable.add(webService.getOfferDetails(id)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .map { Result.success(it) }
-                .doOnError(defaultErrorHandler())
-                .onErrorReturn { Result.failure(it) }
-                .startWith(Result.loading())
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui())
+                .doOnError { defaultErrorHandler() }
                 .subscribe({
-                    offerResponse.postValue(it)
+                    networkViewModel.showProgress.set(false)
+                    networkViewModel.showError.set(false)
+                    offer.set(it)
+                }, {
+                    networkViewModel.showProgress.set(false)
+                    networkViewModel.showError.set(true)
+                    networkViewModel.errorMsg.set(it.localizedMessage)
+                }, {
                 })
         )
     }

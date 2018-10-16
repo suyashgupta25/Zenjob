@@ -47,7 +47,7 @@ object PreferenceHelper {
     inline fun SharedPreferences.clearAll(operation: (SharedPreferences.Editor) -> Unit) {
         val editor = this.edit()
         editor.clear()
-        editor.commit()
+        editor.apply()
     }
 
     val KEY_AUTH_TOKEN = "keyAuthToken"

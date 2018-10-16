@@ -1,6 +1,5 @@
 package com.zenjob.ui.home.offerdetails
 
-import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
@@ -11,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.zenjob.R
-import com.zenjob.data.model.Result
 import com.zenjob.databinding.FragmentOfferDetailsBinding
 import com.zenjob.ui.common.listeners.ErrorItemClickListener
 import dagger.android.support.AndroidSupportInjection
@@ -50,29 +48,7 @@ class OfferDetailsFragment : Fragment(), ErrorItemClickListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        addObservers()
         getOfferDetails()
-    }
-
-    private fun addObservers() {
-        viewModel.offerResponse.observe(this, Observer {
-            when (it) {
-                is Result.Loading -> {
-                    viewModel.networkViewModel.showProgress.set(true)
-                    viewModel.networkViewModel.showError.set(false)
-                }
-                is Result.Failure -> {
-                    viewModel.networkViewModel.showProgress.set(false)
-                    viewModel.networkViewModel.showError.set(true)
-                    viewModel.networkViewModel.errorMsg.set(it.message.localizedMessage)
-                }
-                is Result.Success -> {
-                    viewModel.networkViewModel.showProgress.set(false)
-                    viewModel.networkViewModel.showError.set(false)
-                    viewModel.offer.set(it.data)
-                }
-            }
-        })
     }
 
     private fun getOfferDetails() {
