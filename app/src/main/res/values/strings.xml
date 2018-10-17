@@ -6,12 +6,12 @@
     <string name="lbl_login_password">Password</string>
     <string name="lbl_login_submit">LOGIN</string>
 
-    <string name="lbl_home_toolbar_title">Jobs Discover</string>
-    <string name="lbl_offer_earning_per_day">%s per hour</string>
+    <string name="lbl_home_toolbar_title">Jobs Entdecken</string>
+    <string name="lbl_offer_earning_per_day">%s pro Stunde</string>
     <string name="lbl_offer_item_date_title">DATUM</string>
     <string name="lbl_offer_item_time_title">ZEIT</string>
-    <string name="lbl_offer_item_details_button">SEE DETAILS</string>
-    <string name="lbl_offer_item_decline_button">NOT INTERESTED</string>
+    <string name="lbl_offer_item_details_button">ZEIG MIR DETAILS</string>
+    <string name="lbl_offer_item_decline_button">NICHT INTERESSIERT</string>
     <string name="lbl_offer_empty_item_title">Du hast keine neuen Tasks fur diesen Job</string>
 
     <string name="lbl_offer_decline_title">Why dont you want this job?</string>

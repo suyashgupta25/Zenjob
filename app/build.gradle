@@ -57,7 +57,6 @@ dependencies {
 
     // Arch Lifecycle
     implementation "android.arch.lifecycle:extensions:$rootProject.lifecycle"
-    implementation "android.arch.paging:runtime:$rootProject.paging"
     kapt "android.arch.lifecycle:compiler:$rootProject.lifecycle"
 
     //Common Annotations
