@@ -76,7 +76,12 @@ class LoginFragment : Fragment() {
             if (it?.status == Status.SUCCESS) {
                 goToHomeScreen()
             } else if (it?.status == Status.FAILED) {
-                ErrorDialog.newInstance(it.msg, getString(R.string.param_error_message)).show(fragmentManager, ErrorDialog.TAG)
+                val newInstance = ErrorDialog.newInstance(it.msg, getString(R.string.param_error_message))
+                val ft = fragmentManager?.beginTransaction()
+                var prev = fragmentManager?.findFragmentByTag(ErrorDialog.TAG)
+                prev?.let { ft?.remove(prev!!) }
+                ft?.addToBackStack(null)
+                newInstance.show(ft, ErrorDialog.TAG)
             } else if (it?.status == Status.RUNNING) {
                 activity?.hideKeyboard(activity)
             }
@@ -93,10 +98,4 @@ class LoginFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         if (viewModel.checkForAppSession()) goToHomeScreen()
     }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.dummy()
-    }
-
 }

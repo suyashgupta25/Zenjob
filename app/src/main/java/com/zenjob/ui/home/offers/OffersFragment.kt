@@ -92,7 +92,11 @@ class OffersFragment : Fragment(), OfferItemClickListener {
         val newInstance = OfferDeclineFragment
                 .newInstance(mAdapter.getOfferId(position), getString(R.string.param_offer_decline_id))
         newInstance.setTargetFragment(this, OFFER_DECLINE_DIALOG)
-        newInstance.show(fragmentManager, OfferDeclineFragment.TAG)
+        val ft = fragmentManager?.beginTransaction()
+        var prev = fragmentManager?.findFragmentByTag(OfferDeclineFragment.TAG)
+        prev?.let { ft?.remove(prev!!) }
+        ft?.addToBackStack(null)
+        newInstance.show(ft, OfferDeclineFragment.TAG)
     }
 
     override fun onRetryClick(position: Int) {

@@ -12,6 +12,7 @@ import com.zenjob.data.remote.ZenjobService
 import com.zenjob.ui.login.LoginActivity
 import com.zenjob.utils.AppConstants.Companion.CONNECTION_TIMEOUT
 import com.zenjob.utils.AppConstants.Companion.EMPTY
+import com.zenjob.utils.AppConstants.Companion.ERROR_UNAUTHORIZED
 import com.zenjob.utils.AppConstants.Companion.READ_TIMEOUT
 import com.zenjob.utils.AppConstants.Companion.WRITE_TIMEOUT
 import com.zenjob.utils.ApplicationJsonAdapterFactory
@@ -76,7 +77,7 @@ open class NetworkModule {
 
             val request = requestBuilder.build()
             val response = chain.proceed(request)
-            if (!response.isSuccessful && response.code() == 401) {
+            if (!response.isSuccessful && response.code() == ERROR_UNAUTHORIZED) {
                 prefs[KEY_AUTH_TOKEN] = EMPTY
                 val intent = Intent(app.applicationContext, LoginActivity::class.java)
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)

@@ -124,7 +124,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
-                            android:text="DATUM"
+                            android:text="@string/lbl_offer_item_date_title"
                             android:textColor="#9b9b9b"
                             android:textSize="15sp" />
 
@@ -150,7 +150,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
-                            android:text="ZEIT"
+                            android:text="@string/lbl_offer_item_time_title"
                             android:textColor="#9b9b9b"
                             android:textSize="15sp" />
 
@@ -174,7 +174,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_22"
                     android:background="#3b5060"
-                    android:text="SEE DETAILS"
+                    android:text="@string/lbl_offer_item_details_button"
                     android:textColor="@android:color/white" />
 
                 <Button
@@ -184,7 +184,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_16"
                     android:background="@android:color/transparent"
-                    android:text="NOT INTERESTED"
+                    android:text="@string/lbl_offer_item_decline_button"
                     android:textColor="#3b5060" />
 
             </LinearLayout>

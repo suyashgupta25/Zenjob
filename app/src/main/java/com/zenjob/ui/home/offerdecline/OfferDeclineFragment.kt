@@ -145,7 +145,7 @@ class OfferDeclineFragment : DialogFragment(), View.OnClickListener, ErrorItemCl
         } else if (v?.id == R.id.btn_offer_decline_send) {
             val binding = DataBindingUtil.bind<FragmentOfferDeclineBinding>(view!!)
             if (binding?.rgOfferDeclineReasons?.checkedRadioButtonId == -1) {
-                Toast.makeText(activity, "Please select atleast one choice!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, getString(R.string.err_offer_decline_choice_empty), Toast.LENGTH_SHORT).show()
             } else {
                 executeTheOfferDeclineCall()
             }

@@ -27,26 +27,21 @@ class LoginViewModel @Inject constructor(private val webService: ZenjobService,
     fun checkForAppSession() = prefsHelper.checkForSessionAvailable()
 
     fun login() {
-        networkState.value = NetworkState.LOADING
+        networkState.postValue(NetworkState.LOADING)
         disposable.add(
                 webService.postLogin(LoginRequest(email.get(), password.get()))
                         .subscribeOn(schedulerProvider.io())
                         .observeOn(schedulerProvider.ui())
-                .doOnError(defaultErrorHandler())
-                .subscribe({
-                    prefsHelper.saveUserAuth(it)
-                    networkState.value = NetworkState.LOADED
-                }, {
-                    System.err.println(it)
-                    networkState.value = NetworkState(Status.FAILED, it.localizedMessage)
-                }, {
-                })
+                        .doOnError(defaultErrorHandler())
+                        .subscribe({
+                            prefsHelper.saveUserAuth(it)
+                            networkState.postValue(NetworkState.LOADED)
+                        }, {
+                            System.err.println(it)
+                            networkState.postValue(NetworkState(Status.FAILED, it.localizedMessage))
+                        }, {
+                        })
         )
-    }
-
-    fun dummy() {
-        email.set("suyash.gupta25@gmail.com")
-        password.set("testing12345")
     }
 
     override fun onCleared() {

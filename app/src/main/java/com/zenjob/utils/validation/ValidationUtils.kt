@@ -2,6 +2,7 @@ package com.zenjob.utils.validation
 
 import android.text.TextUtils
 import android.util.Patterns
+import com.zenjob.utils.AppConstants.Companion.MIN_LENGTH_PASSWORD
 
 object ValidationUtils {
 
@@ -12,7 +13,7 @@ object ValidationUtils {
 
     @JvmStatic
     fun isValidPassword(target: String?): Boolean {
-        return !TextUtils.isEmpty(target) && target!!.length > 5
+        return !TextUtils.isEmpty(target) && target!!.length > MIN_LENGTH_PASSWORD
     }
 
 }

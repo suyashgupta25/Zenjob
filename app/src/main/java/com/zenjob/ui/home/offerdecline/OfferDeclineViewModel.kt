@@ -84,7 +84,6 @@ class OfferDeclineViewModel @Inject constructor(private val webService: ZenjobSe
                 .doOnError(defaultErrorHandler())
                 .map { Result.success(it) }
                 .startWith(Result.loading())
-//                .delaySubscription(500, TimeUnit.MILLISECONDS)
                 .onErrorReturn { Result.failure(it) }
                 .subscribe({
                     networkViewModel.showProgress.set(false)

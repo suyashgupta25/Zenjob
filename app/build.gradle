@@ -86,9 +86,9 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroidVersion"
     implementation "io.reactivex.rxjava2:rxkotlin:$rootProject.rxkotlin"
 
-    testImplementation 'junit:junit:4.12'
-    testImplementation 'com.nhaarman:mockito-kotlin-kt1.1:1.5.0'
-    testImplementation "org.robolectric:robolectric:3.6.1"
+    testImplementation "junit:junit:$rootProject.junitVersion"
+    testImplementation "com.nhaarman:mockito-kotlin-kt1.1:$rootProject.mockitokotlin"
+    testImplementation "org.robolectric:robolectric:$rootProject.robolectric"
 
     androidTestImplementation ("com.android.support.test.espresso:espresso-core:$rootProject.espressoVersion") {
         exclude group: 'com.android.support', module: 'support-annotations'
