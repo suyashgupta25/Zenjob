@@ -56,11 +56,7 @@ fun setNetworkState(view: View, state: NetworkState?) {
             view.visibility = View.GONE
         }
     } else if (view is TextInputEditText) {
-        if (state == NetworkState.LOADING) {
-            view.isEnabled = false
-        } else {
-            view.isEnabled = true
-        }
+        view.isEnabled = state != NetworkState.LOADING
     } else {
         if (state == NetworkState.LOADING) {
             view.visibility = View.GONE
